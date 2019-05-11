@@ -17,7 +17,7 @@ const App = () => {
                 <Header/>
                 <div className="ui container">
                     <Switch>
-                        <Route path="/streams" exact component={StreamList}/>
+                        <Route path="/" exact component={StreamList}/>
                         <Route path="/streams/new" exact component={StreamCreate}/>
                         <Route path="/streams/edit/:id" exact component={StreamEdit}/>
                         <Route path="/streams/delete/:id" exact component={StreamDelete}/>

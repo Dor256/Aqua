@@ -34,7 +34,7 @@ export const createStream = (formValues: FormValues) => async (dispatch: Dispatc
     const response = await streams.post("/streams", {...formValues, userId});
     if(response.status === 200) {
         dispatch({type: CREATE_STREAM});
-        history.push("/streams");
+        history.push("/");
     }
 }
 
@@ -56,14 +56,14 @@ export const editStream = (id: string, formValues: FormValues) => async (dispatc
     const response = await streams.patch(`/streams/${id}`, formValues);
     if(response.status === 200) {
         dispatch({type: EDIT_STREAM});
-        history.push("/streams");
+        history.push("/");
     }
 }
 
 export const deleteStream = (id: string) => async (dispatch: Dispatch) => {
     const response = await streams.delete(`/streams/${id}`);
     if(response.status === 200) {
-        history.push("/streams");
+        history.push("/");
         thanosFade(id)
         setTimeout(() => dispatch({type: DELETE_STREAM, payload: response.data}), 1300);
     }

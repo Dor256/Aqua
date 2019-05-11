@@ -1,4 +1,20 @@
 #create-stream {
     width: 15%;
-    margin: auto 43%;
+    margin: 4% 42.5%;
+}
+
+.ui.card {
+    text-align: center;
+
+    .image {
+        .card-image {
+            width: 70%;
+            height: 30%;
+            margin: auto;
+        }
+    }
+}
+
+.ui.button {
+    width: 6vw;
 }

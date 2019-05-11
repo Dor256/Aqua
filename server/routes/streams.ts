@@ -17,8 +17,7 @@ const router = Router();
 router.post("/", (req: StreamRequest, res: Response) => {
     const stream = new Stream({title: req.body.title, description: req.body.description, userId: req.body.userId});
     stream.save()
-    .then((newStream) => {
-        console.log(newStream);
+    .then(() => {
         res.status(200).send();
     })
     .catch((err) => {

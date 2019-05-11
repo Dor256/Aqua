@@ -37,13 +37,13 @@ class StreamDelete extends React.Component<Props> {
                         <img id="gauntlet" src={`${process.env.PUBLIC_URL}/infinity_gauntlet.png`}/>
                     </div>
                 </div>
-                <Link to="/streams" className="ui button">Cancel</Link>
+                <Link to="/" className="ui button">Cancel</Link>
             </React.Fragment>
         );
     }
 
     dismissAndRedirect() {
-        history.push("/streams");
+        history.push("/");
     }
 
     render() {

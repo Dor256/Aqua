@@ -10,7 +10,7 @@ const Header = () => {
                 <img id="logo" src={`${process.env.PUBLIC_URL}/drop.png`} alt=""/>
                 Aqua
             </Link>
-            <Link to="/streams" className="item">Browse</Link>
+            <Link to="/" className="item">Browse</Link>
             <div className="right menu">
                 <GoogleAuth/>
             </div>

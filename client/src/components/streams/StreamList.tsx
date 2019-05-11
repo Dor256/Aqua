@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import { fetchStreams } from "../../actions";
 import { Dispatch } from "redux";
+import history from "../../history";
 import { Stream, AuthState } from "../../Types";
 import { Link } from "react-router-dom";
 import  "./StreamList.scss";
@@ -25,7 +26,7 @@ class StreamList extends React.Component<Props> {
     renderAdminButtons(stream: Stream) {
         if(stream.userId === this.props.currentUserId) {
             return (
-                <div className="right floated content">
+                <div className="extra content">
                     <Link to={`/streams/edit/${stream._id}`} className="ui button yellow">Edit</Link>
                     <Link to={`/streams/delete/${stream._id}`} className="ui button negative">Delete</Link>
                 </div>
@@ -36,14 +37,20 @@ class StreamList extends React.Component<Props> {
     renderList() {
         return this.props.streams.map((stream) => {
             return (
-                <div id={stream._id} className="item" key={stream._id}>
-                    {this.renderAdminButtons(stream)}
-                    <i className="large middle aligned icon camera"/>
-                    <div className="content">
-                        <Link className="header" to={`/streams/${stream._id}`}>{stream.title}</Link>
-                        <div className="description">
-                            {stream.description}
+                <div id={stream._id} className="column" key={stream._id}>
+                    <div className="ui card">
+                        <div className="image">
+                            <Link to={`/streams/${stream._id}`}>
+                                <img className="card-image" src={`${process.env.PUBLIC_URL}/drop.png`}/>
+                            </Link>
                         </div>
+                        <div className="content">
+                            <Link className="header" to={`/streams/${stream._id}`}>{stream.title}</Link>
+                            <div className="description">
+                                {stream.description}
+                            </div>
+                        </div>
+                        {this.renderAdminButtons(stream)}
                     </div>
                 </div>
             );
@@ -64,7 +71,7 @@ class StreamList extends React.Component<Props> {
         return (
             <div>
                 <h2 className="heading">Streams</h2>
-                <div className="ui celled list">
+                <div className="ui four column grid">
                     {this.renderList()}
                 </div>
                 {this.renderCreateButton()}
