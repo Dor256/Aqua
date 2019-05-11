@@ -1,0 +1,32 @@
+div.thanos-fade{
+    animation-name: fadeout, blur;
+    animation-duration: 2s, 10s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes blur {
+    90% {
+        -webkit-filter: blur(10px);
+    }
+    70%{
+        -webkit-filter: blur(20px)
+    }
+    50% {
+        -webkit-filter: blur(30px);
+    }
+    30% {
+        -webkit-filter: blur(40px);
+    }
+}
+
+.ready-fade {
+    background-color: saddlebrown;
+    .ui.button {
+        background-color: saddlebrown;
+    }
+}
