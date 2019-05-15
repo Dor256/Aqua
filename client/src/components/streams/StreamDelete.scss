@@ -3,3 +3,10 @@
     width: 27%;
     height: 27%;
 }
+
+.ui.animated.vertical.button.negative {
+    padding: 11px 21px;
+    .hidden.content {
+        margin-top: -.8em;
+    }
+}

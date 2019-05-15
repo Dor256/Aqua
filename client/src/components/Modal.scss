@@ -4,5 +4,9 @@
 
     .actions {
         text-align: center;
+
+        .ui.animated.button .hidden.content {
+            margin-top: -.8em;
+        }
     }
 }

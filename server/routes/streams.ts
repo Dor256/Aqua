@@ -8,7 +8,8 @@ interface StreamRequest extends Request {
         userId: string
     },
     params: {
-        stream_id: string
+        streamId: string,
+        userId: string
     }
 }
 
@@ -28,16 +29,35 @@ router.post("/", (req: StreamRequest, res: Response) => {
 router.get("/", (req: StreamRequest, res: Response) => {
     Stream.find({})
     .then((streams) => {
-        res.status(200);
-        res.send(streams);
+        if(streams. length > 0) {
+            res.status(200);
+            res.send(streams);
+        } else {
+            res.status(201).send();
+        }
     })
     .catch((err) => {
         console.log(err);
     });
 });
 
-router.patch("/:stream_id", (req: StreamRequest, res: Response) => {
-    Stream.findByIdAndUpdate(req.params.stream_id, {title: req.body.title, description: req.body.description})
+router.get("/:userId", (req: StreamRequest, res: Response) => {
+    Stream.find({userId: req.params.userId})
+    .then((streams) => {
+        if(streams.length > 0) {
+            res.status(200);
+            res.send(streams);
+        } else {
+            res.status(201).send();
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
+router.patch("/:streamId", (req: StreamRequest, res: Response) => {
+    Stream.findByIdAndUpdate(req.params.streamId, {title: req.body.title, description: req.body.description})
     .then(() => {
         res.status(200).send();
     })
@@ -46,8 +66,8 @@ router.patch("/:stream_id", (req: StreamRequest, res: Response) => {
     });
 });
 
-router.get("/:stream_id", (req: StreamRequest, res: Response) => {
-    Stream.findById(req.params.stream_id)
+router.get("/:streamId", (req: StreamRequest, res: Response) => {
+    Stream.findById(req.params.streamId)
     .then((stream) => {
         res.status(200);
         res.send(stream);
@@ -57,8 +77,8 @@ router.get("/:stream_id", (req: StreamRequest, res: Response) => {
     });
 });
 
-router.delete("/:stream_id", (req: StreamRequest, res: Response) => {
-    Stream.findByIdAndDelete(req.params.stream_id)
+router.delete("/:streamId", (req: StreamRequest, res: Response) => {
+    Stream.findByIdAndDelete(req.params.streamId)
     .then((stream) => {
         res.status(200);
         res.send(stream);

@@ -76,6 +76,9 @@ class GoogleAuth extends React.Component<Props> {
         if(this.props.isSignedIn) {
             return (
                 <React.Fragment>
+                    <Link to={`/dashboard/${this.auth.currentUser.get().getId()}`} className="item">
+                        Dashboard
+                    </Link>
                     <Link to="/" className="item" onClick={this.onSignOutClick}>
                         Sign Out
                     </Link>

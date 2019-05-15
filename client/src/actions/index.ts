@@ -1,6 +1,7 @@
 import { Dispatch } from "redux"; 
 import streams from "../apis/streams";
 import history from "../history";
+import thanosFade from "../thanosFade";
 import { 
     SIGN_IN,
     SIGN_OUT,
@@ -9,12 +10,12 @@ import {
     EDIT_STREAM,
     FETCH_STREAM,
     FETCH_STREAMS,
+    FETCH_USER_STREAMS,
     Action, 
     FormValues, 
-    State
+    State,
+    Stream
 } from "../Types";
-import thanosFade from "../thanosFade";
-
 
 export const signIn = (userId: string): Action => {
     return {
@@ -29,7 +30,7 @@ export const signOut = (): Action => {
     };
 }
 
-export const createStream = (formValues: FormValues) => async (dispatch: Dispatch, getState: () => State) => {
+export const createStream = (formValues: FormValues | Stream) => async (dispatch: Dispatch, getState: () => State) => {
     const {userId} = getState().auth;
     const response = await streams.post("/streams", {...formValues, userId});
     if(response.status === 200) {
@@ -42,6 +43,15 @@ export const fetchStreams = () => async (dispatch: Dispatch) => {
     const response = await streams.get("/streams");
     if(response.status === 200) {
         dispatch({type: FETCH_STREAMS, payload: response.data});
+    }
+}
+
+export const fetchUserStreams = (userId: string) => async (dispatch: Dispatch) => {
+    if(userId) {
+        const response = await streams.get(`/streams/${userId}`);
+        if(response.status === 200) {
+            dispatch({type: FETCH_USER_STREAMS, payload: response.data});
+        }
     }
 }
 
@@ -60,11 +70,11 @@ export const editStream = (id: string, formValues: FormValues) => async (dispatc
     }
 }
 
-export const deleteStream = (id: string) => async (dispatch: Dispatch) => {
+export const deleteStream = (id: string, userId: string | null = null) => async (dispatch: Dispatch) => {
     const response = await streams.delete(`/streams/${id}`);
     if(response.status === 200) {
-        history.push("/");
-        thanosFade(id)
+        userId ? history.push(`/dashboard/${userId}`) : history.push("/");
+        thanosFade(id);
         setTimeout(() => dispatch({type: DELETE_STREAM, payload: response.data}), 1300);
     }
 }

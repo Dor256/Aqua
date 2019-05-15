@@ -8,8 +8,8 @@ type AuthObject = {
 }
 
 export type Action = 
-| {type: "FETCH_STREAMS", payload: Payload[]}
-| {type: "FETCH_STREAM" | "DELETE_STREAM", payload: Payload}
+| {type: "FETCH_STREAMS" | "FETCH_USER_STREAMS", payload: Payload[]}
+| {type: "FETCH_STREAM" | "DELETE_STREAM" | "MAYBE_DELETE", payload: Payload}
 | {type: "SIGN_IN", payload: string}
 | {type: "SIGN_OUT"}
 | {type: "CREATE_STREAM" | "EDIT_STREAM"}
@@ -21,6 +21,7 @@ export const FETCH_STREAMS = "FETCH_STREAMS";
 export const FETCH_STREAM = "FETCH_STREAM";
 export const DELETE_STREAM = "DELETE_STREAM";
 export const EDIT_STREAM = "EDIT_STREAM";
+export const FETCH_USER_STREAMS = "FETCH_USER_STREAMS";
 
 export type AuthState = {
     isSignedIn: boolean | null,
