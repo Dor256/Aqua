@@ -17,10 +17,10 @@ class BrowseStreams extends React.Component<Props> {
 
     render() {
         return (
-            <React.Fragment>
+            <div className="ui container">
                 <h2 id="list-head" className="heading">Streams</h2>
                 <StreamList inDashboard={false} onSignIn={this.props.fetchStreams}/>
-        </React.Fragment>
+            </div>
         );
     }
 }

@@ -1,7 +1,8 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
-import {router as streamRouter} from "./routes/streams";
+import streamRouter from "./routes/streams";
+import dashboardRouter from "./routes/dashboard";
 
 const url = "mongodb://localhost/aqua";
 mongoose.connect(url, {useNewUrlParser: true}).catch(() => console.log("Error connecting to database!"));
@@ -20,6 +21,7 @@ app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use("/streams", streamRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.listen(5000, () => {
     console.log("Server up!");

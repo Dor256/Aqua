@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import streams from "../apis/streams";
 import history from "../history";
 import thanosFade from "../thanosFade";
+import { Action, FormValues, State,Stream } from "../Types";
 import { 
     SIGN_IN,
     SIGN_OUT,
@@ -10,12 +11,8 @@ import {
     EDIT_STREAM,
     FETCH_STREAM,
     FETCH_STREAMS,
-    FETCH_USER_STREAMS,
-    Action, 
-    FormValues, 
-    State,
-    Stream
-} from "../Types";
+    FETCH_USER_STREAMS 
+} from "../Constants";
 
 export const signIn = (userId: string): Action => {
     return {
@@ -35,7 +32,7 @@ export const createStream = (formValues: FormValues | Stream) => async (dispatch
     const response = await streams.post("/streams", {...formValues, userId});
     if(response.status === 200) {
         dispatch({type: CREATE_STREAM});
-        history.push("/");
+        history.push(`/dashboard/${userId}`);
     }
 }
 
@@ -48,7 +45,7 @@ export const fetchStreams = () => async (dispatch: Dispatch) => {
 
 export const fetchUserStreams = (userId: string) => async (dispatch: Dispatch) => {
     if(userId) {
-        const response = await streams.get(`/streams/${userId}`);
+        const response = await streams.get(`/dashboard/${userId}`);
         if(response.status === 200) {
             dispatch({type: FETCH_USER_STREAMS, payload: response.data});
         }

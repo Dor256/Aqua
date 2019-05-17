@@ -1,4 +1,5 @@
-import { AuthState, SIGN_IN, SIGN_OUT, Action } from "../Types";
+import { AuthState,  Action } from "../Types";
+import { SIGN_IN, SIGN_OUT } from "../Constants";
 
 const INITIAL_STATE = {
     isSignedIn: null,

@@ -1,17 +1,6 @@
-import {Router, Response, Request} from "express";
+import {Router, Response } from "express";
 import {Stream} from "../models/streams";
-
-interface StreamRequest extends Request {
-    body: {
-        title: string,
-        description: string,
-        userId: string
-    },
-    params: {
-        streamId: string,
-        userId: string
-    }
-}
+import { StreamRequest, NOT_FOUND, OK } from "../Types";
 
 const router = Router();
 
@@ -19,7 +8,7 @@ router.post("/", (req: StreamRequest, res: Response) => {
     const stream = new Stream({title: req.body.title, description: req.body.description, userId: req.body.userId});
     stream.save()
     .then(() => {
-        res.status(200).send();
+        res.status(OK).send();
     })
     .catch((err) => {
         console.log(err);
@@ -30,25 +19,10 @@ router.get("/", (req: StreamRequest, res: Response) => {
     Stream.find({})
     .then((streams) => {
         if(streams. length > 0) {
-            res.status(200);
+            res.status(OK);
             res.send(streams);
         } else {
-            res.status(201).send();
-        }
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-});
-
-router.get("/:userId", (req: StreamRequest, res: Response) => {
-    Stream.find({userId: req.params.userId})
-    .then((streams) => {
-        if(streams.length > 0) {
-            res.status(200);
-            res.send(streams);
-        } else {
-            res.status(201).send();
+            res.status(NOT_FOUND).send();
         }
     })
     .catch((err) => {
@@ -59,7 +33,7 @@ router.get("/:userId", (req: StreamRequest, res: Response) => {
 router.patch("/:streamId", (req: StreamRequest, res: Response) => {
     Stream.findByIdAndUpdate(req.params.streamId, {title: req.body.title, description: req.body.description})
     .then(() => {
-        res.status(200).send();
+        res.status(OK).send();
     })
     .catch((err) => {
         console.log(err);
@@ -69,8 +43,12 @@ router.patch("/:streamId", (req: StreamRequest, res: Response) => {
 router.get("/:streamId", (req: StreamRequest, res: Response) => {
     Stream.findById(req.params.streamId)
     .then((stream) => {
-        res.status(200);
-        res.send(stream);
+        if(stream) {
+            res.status(OK);
+            res.send(stream);
+        } else {
+            res.status(NOT_FOUND).send();
+        }
     })
     .catch((err) => {
         console.log(err);
@@ -80,7 +58,7 @@ router.get("/:streamId", (req: StreamRequest, res: Response) => {
 router.delete("/:streamId", (req: StreamRequest, res: Response) => {
     Stream.findByIdAndDelete(req.params.streamId)
     .then((stream) => {
-        res.status(200);
+        res.status(OK);
         res.send(stream);
     })
     .catch((err) => {
@@ -89,4 +67,4 @@ router.delete("/:streamId", (req: StreamRequest, res: Response) => {
 });
 
 
-export {router};
+export default router;

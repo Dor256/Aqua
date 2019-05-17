@@ -1,11 +1,5 @@
-import {
-    Action,
-    StreamState,
-    FETCH_STREAM,
-    FETCH_STREAMS,
-    DELETE_STREAM,
-    FETCH_USER_STREAMS
-} from "../Types";
+import { Action, StreamState } from "../Types";
+import { FETCH_STREAM, FETCH_STREAMS, DELETE_STREAM, FETCH_USER_STREAMS } from "../Constants";
 
 const mapKeys = (array: any[]) => array.reduce((prev, curr) => {
     return {...prev, [curr._id]: curr};

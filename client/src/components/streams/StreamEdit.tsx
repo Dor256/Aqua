@@ -23,7 +23,7 @@ class StreamEdit extends React.Component<Props> {
             return <div>Loading...</div>;
         }
         return (
-            <div>
+            <div className="ui container">
                 <h2 className="heading">Edit a Stream</h2>
                 <StreamForm 
                     onSubmit={this.onSubmit} 
