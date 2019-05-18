@@ -6,7 +6,6 @@ import StreamShow from "./streams/StreamShow";
 import StreamDelete from "./streams/StreamDelete";
 import BrowseStreams from "./streams/BrowseStreams";
 import Dashboard from "./Dashboard";
-import CollapsedMenu from "./CollapsedMenu";
 import PageNotFound from "./streams/PageNotFound";
 import Header from "./Header";
 import history from "../history";
@@ -17,7 +16,6 @@ const App = () => {
         <div>
             <Router history={history}>
                 <Header/>
-                <CollapsedMenu/>
                 <Switch>
                     <Route path="/" exact component={BrowseStreams}/>
                     <Route path="/dashboard/:user_id" exact component={Dashboard}/>

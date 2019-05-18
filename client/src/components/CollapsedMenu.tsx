@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { signIn, signOut } from "../actions";
 import { NON_MOBILE } from "../Constants";
 import { State } from "../Types";
+import "./CollapsedMenu.scss";
 
 type Props = {
     userId?: string,
@@ -32,7 +33,7 @@ const renderAuthButton = (props: Props) => {
 const CollapsedMenu = (props: Props) => {
     return (
         <div id="collapsed" className="container ui collapse">
-            <div id="menu" className="ui vertical menu">
+            <div id="menu" className="ui vertical menu head">
                 <Link to="/" className="item">Browse</Link>
                 {renderAuthButton(props)}
             </div>

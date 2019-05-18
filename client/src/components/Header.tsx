@@ -21,10 +21,10 @@ const Header = () => {
                 <Link to="/" className="item">Browse</Link>
                 <div className="right menu">
                     <GoogleAuth/>
-                    <span onClick={toggleCollapsedMenu} id="hamburger" className="item"><i className="ui icon bars"/></span>
+                    <span id="hamburger" className="item"><i onClick={toggleCollapsedMenu} className="ui icon bars"/></span>
                 </div>
             </div>
-            {/* <CollapsedMenu/> */}
+            <CollapsedMenu/>
         </React.Fragment>
     );
 }
