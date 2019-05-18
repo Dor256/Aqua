@@ -1,13 +1,45 @@
 import React from "react";
 import { connect } from "react-redux";
+import flv from "flv.js";
 import { fetchStream } from "../../actions";
 import { RouteComponentProps, State } from "../../Types";
+import "./StreamShow.scss";
 
-type Props = RouteComponentProps
+type Props = RouteComponentProps;
+
+interface StreamShow {
+    videoRef: React.RefObject<HTMLVideoElement>,
+    player: flv.Player
+}
 
 class StreamShow extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+        this.videoRef = React.createRef();
+    }
+
     componentDidMount() {
-        this.props.fetchStream(this.props.match.params.id);
+        const {id} = this.props.match.params;
+        this.props.fetchStream(id);
+        this.buildPlayer();
+    }
+    
+    componentDidUpdate() {
+        this.buildPlayer();
+    }
+
+    buildPlayer() {
+        if(!this.player || this.props.stream) {
+            const {id} = this.props.match.params;
+            this.player = flv.createPlayer({
+                type: "flv",
+                url: `http://localhost:8000/live/${id}.flv`
+            });
+            if(this.videoRef.current){
+                this.player.attachMediaElement(this.videoRef.current);
+                this.player.load();
+            } 
+        }
     }
 
     render() {
@@ -15,9 +47,10 @@ class StreamShow extends React.Component<Props> {
             return <div>Loading...</div>;
         }
         return (
-            <div>
-                <h1 className="heading">{this.props.stream.title}</h1>
-                <h5 className="heading">{this.props.stream.description}</h5>
+            <div className="ui container">
+                <video id="video" ref={this.videoRef} controls/>
+                <h1 id="title" className="heading">{this.props.stream.title}</h1>
+                <h5 id="desc" className="heading">{this.props.stream.description}</h5>
             </div>
         );
     }

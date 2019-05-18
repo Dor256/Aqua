@@ -12,6 +12,7 @@
     "@types/react-router-dom": "^4.3.2",
     "@types/redux-form": "^8.1.0",
     "axios": "^0.18.0",
+    "flv.js": "^1.5.0",
     "html2canvas": "^1.0.0-rc.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
