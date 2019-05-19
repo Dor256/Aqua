@@ -41,7 +41,7 @@ class StreamForm extends React.Component<Props> {
         return (
             <div className={`field ${maybeErrorClass}`}>
                 <label>{label}</label>
-                <textarea id="desc" form="create" {...input}/>
+                <textarea id="desc-text" form="create" {...input}/>
                 {this.renderError(meta)}
             </div>
         );

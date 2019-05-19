@@ -2,9 +2,9 @@
   "name": "rtmpserver",
   "version": "1.0.0",
   "description": "streaming server",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js"
+    "start": "ts-node index.ts"
   },
   "repository": {
     "type": "git",

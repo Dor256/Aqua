@@ -28,6 +28,14 @@ class StreamShow extends React.Component<Props> {
         this.buildPlayer();
     }
 
+    componentWillUnmount() {
+        this.player.destroy();
+    }
+
+    renderVideo() {
+        return <video id="video" ref={this.videoRef} controls/>;
+    }
+
     buildPlayer() {
         if(!this.player || this.props.stream) {
             const {id} = this.props.match.params;
@@ -48,7 +56,7 @@ class StreamShow extends React.Component<Props> {
         }
         return (
             <div className="ui container">
-                <video id="video" ref={this.videoRef} controls/>
+                {this.renderVideo()}
                 <h1 id="title" className="heading">{this.props.stream.title}</h1>
                 <h5 id="desc" className="heading">{this.props.stream.description}</h5>
             </div>
