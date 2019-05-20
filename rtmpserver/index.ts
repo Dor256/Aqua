@@ -1,4 +1,7 @@
 import NodeMediaServer = require("node-media-server");
+import * as socketServer from "socket.io";
+
+const SOCKET_PORT = 7000;
 
 const config = {
   rtmp: {
@@ -10,18 +13,22 @@ const config = {
   },
   http: {
     port: 8000,
-    allow_origin: '*'
+    allow_origin: "*"
   }
 };
 
 const nms = new NodeMediaServer(config);
 
-nms.on("doneConnect", () => {
-  console.log("finished");
-});
+const server = socketServer(SOCKET_PORT);
+server.sockets.on("connection", (socket) => {
+  nms.on("postPublish", () => {
+    socket.emit("stream", true);
+  });
 
-nms.on("postConnect", () => {
-  console.log("streaming");
+  nms.on("doneConnect", () => {
+    socket.emit("done", false);
+  })
 });
 
 nms.run();
+
