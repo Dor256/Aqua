@@ -1,9 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import flv from "flv.js";
+import * as socket from "socket.io-client";
 import { fetchStream } from "../../actions";
 import { RouteComponentProps, State } from "../../Types";
 import "./StreamShow.scss";
+
+const client = socket.connect("http://localhost:7000");
+client.on("stream", (isStreaming: boolean) => console.log(isStreaming));
+client.on("done", (isStreaming: boolean) => console.log(isStreaming));
 
 type Props = RouteComponentProps;
 
