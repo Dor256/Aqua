@@ -2,6 +2,7 @@ import NodeMediaServer = require("node-media-server");
 import * as socketServer from "socket.io";
 
 const SOCKET_PORT = 7000;
+let webSocket = null;
 
 const config = {
   rtmp: {
@@ -17,18 +18,15 @@ const config = {
   }
 };
 
-const nms = new NodeMediaServer(config);
+const mediaServer = new NodeMediaServer(config);
 
 const server = socketServer(SOCKET_PORT);
 server.sockets.on("connection", (socket) => {
-  nms.on("postPublish", () => {
-    socket.emit("stream", true);
-  });
-
-  nms.on("doneConnect", () => {
-    socket.emit("done", false);
-  })
+  webSocket = socket;
 });
 
-nms.run();
+mediaServer.on("postPublish", () => webSocket.emit("start"));
+mediaServer.on("donePublish", () => webSocket.emit("end"));
+
+mediaServer.run();
 

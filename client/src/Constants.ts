@@ -6,5 +6,6 @@ export const FETCH_STREAM = "FETCH_STREAM";
 export const DELETE_STREAM = "DELETE_STREAM";
 export const EDIT_STREAM = "EDIT_STREAM";
 export const FETCH_USER_STREAMS = "FETCH_USER_STREAMS";
+export const GET_STREAM_STATE = "GET_STREAM_STATE";
 
 export const NON_MOBILE = 768; 

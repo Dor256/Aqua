@@ -27,6 +27,11 @@ div.thanos-fade{
 .ready-fade {
     .ui.card {
         background-color: saddlebrown;
+
+        #placeholder-container {
+            background: saddlebrown;
+        }
+
         .ui.button {
             background-color: saddlebrown;
         }

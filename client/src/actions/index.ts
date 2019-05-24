@@ -11,7 +11,8 @@ import {
     EDIT_STREAM,
     FETCH_STREAM,
     FETCH_STREAMS,
-    FETCH_USER_STREAMS 
+    FETCH_USER_STREAMS,
+    GET_STREAM_STATE,
 } from "../Constants";
 
 export const signIn = (userId: string): Action => {
@@ -22,9 +23,11 @@ export const signIn = (userId: string): Action => {
 }
 
 export const signOut = (): Action => {
-    return {
-        type: SIGN_OUT
-    };
+    return {type: SIGN_OUT};
+}
+
+export const getStreamState = (streamStatus: boolean) => {
+    return {type: GET_STREAM_STATE, payload: streamStatus};
 }
 
 export const createStream = (formValues: FormValues | Stream) => async (dispatch: Dispatch, getState: () => State) => {

@@ -12,6 +12,7 @@ export type Action =
 | {type: "FETCH_STREAM" | "DELETE_STREAM" | "MAYBE_DELETE", payload: Payload}
 | {type: "SIGN_IN", payload: string}
 | {type: "SIGN_OUT"}
+| {type: "GET_STREAM_STATE", payload: boolean}
 | {type: "CREATE_STREAM" | "EDIT_STREAM"}
 
 export type AuthState = {
@@ -21,6 +22,10 @@ export type AuthState = {
 
 export type StreamState = {
     [key: string]: Payload
+}
+
+export type ConnectionState = {
+    isStreaming: boolean
 }
 
 export type Payload = {
@@ -49,9 +54,10 @@ export type FormValues = {
 }
 
 export type State = {
-    auth: AuthState
-    form: FormState
-    streams: StreamState
+    auth: AuthState,
+    form: FormState,
+    streams: StreamState,
+    connection: ConnectionState
 }
 
 export interface RouteComponentProps {
