@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { signIn, signOut } from "../actions";
 import UserImage from "./UserImage";
 import { API } from "../Types";
-import { apiKey } from "../apis/apiKey";
+import apiKey from "../apis/apiKey";
 
 interface GoogleAuth {
     auth: {
