@@ -1,6 +1,6 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import * as mongoose from "mongoose";
+import express, { Request, Response, NextFunction } from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
 import streamRouter from "./routes/streams";
 import dashboardRouter from "./routes/dashboard";
 
@@ -10,7 +10,7 @@ mongoose.set("useFindAndModify", false);
 
 const app = express();
 
-const allowCrossDomain = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+const allowCrossDomain = (req: Request, res: Response, next: NextFunction) => {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
